@@ -1,0 +1,15 @@
+{
+  "name": "epub-cfi-generator",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node epub-cfi-generator.js"
+  },
+  "dependencies": {
+    "adm-zip": "^0.4.7",
+    "rsvp": "^3.0.18",
+    "tmp": "0.0.26",
+    "xmldom": "~0.1.19",
+    "xpath": "~0.0.9"
+  }
+}
