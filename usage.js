@@ -11,7 +11,7 @@ var EpubCfiGenerator = require('./epub-cfi-generator');
         return;
     }
     
-    EpubCfiGenerator().parse(inputFile).then(function (spinesInfo) {
+    new EpubCfiGenerator().parse(inputFile).then(function (spinesInfo) {
         var serialized = JSON.stringify(spinesInfo, null, 4);
         console.log(`result data length: ${serialized.length}`);
         fs.writeFileSync(outputFile, serialized);

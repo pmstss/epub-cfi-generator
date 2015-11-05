@@ -26,7 +26,7 @@ var cfiGenerator = require('./readium-cfi/cfi_generator').Generator;
             fs.readFile(filePath, 'utf8', function (err, data) {
                 try {
                     if (err) {
-                        throw `Error reading container.xml file ${packageFilePath}: ${err}`;
+                        throw `Error reading container.xml file ${filePath}: ${err}`;
                     }
                 
                     resolve(path.join(epubPath, validateSingleNode(xpathUtils.nsXPath(xpathUtils.NS_CONTAINER, '//main:rootfile',
@@ -103,7 +103,7 @@ var cfiGenerator = require('./readium-cfi/cfi_generator').Generator;
         }
     }
 
-    EpubCfiGenerator.prototype.parse = function (inputPath, writeToFile) {         
+    EpubCfiGenerator.prototype.parse = function (inputPath) {         
         return new Promise(function (resolve, reject) {
             fs.lstat(inputPath, function (err, stats) {
                 if (!err) {

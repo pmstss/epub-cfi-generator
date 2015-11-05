@@ -1,0 +1,50 @@
+module.exports = function (grunt) {
+    'use strict';
+
+    // Time how long tasks take. Can help when optimizing build times
+    require('time-grunt')(grunt);
+
+    // Load grunt tasks automatically
+    require('load-grunt-tasks')(grunt);
+
+    // Configurable paths
+    var config = {
+        app: '.'
+    };
+
+    // Define the configuration for all the tasks
+    grunt.initConfig({
+
+        // Project settings
+        config: config,
+
+        // Make sure code styles are up to par and there are no obvious mistakes
+        jshint: {
+            dist: [
+                'Gruntfile.js',
+                '<%= config.app %>/*.js'
+            ],
+            options: {
+                jshintrc: '.jshintrc',
+                reporter: require('jshint-stylish'),
+                verbose: true
+            }
+        },
+
+        jscs: {
+            dist: [
+                'Gruntfile.js',
+                '<%= config.app %>/*.js'
+            ],
+            options: {
+                config: '.jscsrc',
+                verbose: true
+            }
+        }
+    });
+
+    grunt.registerTask('default', [
+        'jshint'
+        //'jscs'    // TODO: clarify es6 jscs compatibility
+    ]);
+};

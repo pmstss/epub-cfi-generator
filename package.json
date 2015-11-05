@@ -1,13 +1,20 @@
 {
   "name": "epub-cfi-generator",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.0.1",
+  "private": false,
   "scripts": {
-    "start": "node epub-cfi-generator.js"
+    "start": "node usage.js"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-jscs": "^1.8.0",
+    "jshint-stylish": "^2.0.1",
+    "load-grunt-tasks": "^3.2.0",
+    "time-grunt": "^1.2.1"  
   },
   "dependencies": {
     "adm-zip": "^0.4.7",
-    "rsvp": "^3.0.18",
     "tmp": "0.0.26",
     "xmldom": "~0.1.19",
     "xpath": "~0.0.9"
