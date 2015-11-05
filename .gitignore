@@ -2,3 +2,4 @@
 .idea
 *.epub
 /output.json
+/node_modules
