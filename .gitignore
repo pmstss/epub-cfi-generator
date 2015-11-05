@@ -1,2 +1,4 @@
 *.iml
 .idea
+*.epub
+/output.json
