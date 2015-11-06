@@ -134,9 +134,7 @@ var cfiGenerator = require('./readium-cfi/cfi_generator').Generator;
                     spineInfo.content = nodes;
                     delete spineInfo.path;
                 });
-            })).then(function () {
-                return spinesInfo;
-            });
+            })).then(() => spinesInfo);
         });
     };
 
