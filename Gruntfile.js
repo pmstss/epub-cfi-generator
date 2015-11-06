@@ -41,11 +41,20 @@ module.exports = function (grunt) {
                 esnext: true,
                 verbose: true
             }
-        }
+        },
+
+        jsonlint: {
+            all: {
+                src: [
+                    '<%= config.app %>/*.json'
+                ]
+            }
+        },
     });
 
     grunt.registerTask('default', [
         'jshint',
-        'jscs'
+        'jscs',
+        'jsonlint'
     ]);
 };
