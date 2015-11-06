@@ -127,12 +127,16 @@ var cfiGenerator = require('./readium-cfi/cfi_generator').Generator;
         }).then(getPackageFilePath).then(function (packageFilePath) {
             return getSpinesInfo(packageFilePath);
         }).then(function (spinesInfo) {
+            //console.log('### spinesInfo: %o', JSON.stringify(spinesInfo));
             return Promise.all(spinesInfo.map(function (spineInfo) {
                 return getSpineNodesCfi(spineInfo.path).then(function (nodes) {
+                    //console.log('### path: %o, nodes: %o', spineInfo.path, JSON.stringify(nodes));
                     spineInfo.content = nodes;
                     delete spineInfo.path;
                 });
-            }));
+            })).then(function () {
+                return spinesInfo;
+            });
         });
     };
 
