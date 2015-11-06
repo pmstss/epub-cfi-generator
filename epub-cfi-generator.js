@@ -15,7 +15,7 @@ var cfiGenerator = require('./readium-cfi/cfi_generator').Generator;
     function validateSingleNode(nodes) {
         if (nodes.length !== 1) {
             nodes.forEach(console.log);
-            throw 'Ambiguous nodes, size: ' + nodes.length;
+            throw `Ambiguous nodes, size: ${nodes.length}`;
         }
         return nodes[0];
     }
@@ -54,12 +54,12 @@ var cfiGenerator = require('./readium-cfi/cfi_generator').Generator;
 
                     resolve(itemrefs.map(function (itemref) {
                         var item = validateSingleNode(xpathUtils.nsXPath(xpathUtils.NS_PACKAGE_DOC,
-                                '//main:item[@id="' + itemref.getAttribute('idref') + '"]', doc));
+                                `//main:item[@id="${itemref.getAttribute('idref')}"]`, doc));
 
                         return {
                             idref: itemref.getAttribute('idref'),
                             href: item.getAttribute('href'),
-                            path: rootDir + '/' + item.getAttribute('href')
+                            path: `${rootDir}/${item.getAttribute('href')}`
                         };
                     }));
                 } catch (e) {
@@ -80,8 +80,7 @@ var cfiGenerator = require('./readium-cfi/cfi_generator').Generator;
                     var doc = domParser.parseFromString(data);
 
                     var textNodes = xpathUtils.htmlXPath('/main:html/main:body//text()[normalize-space()]', doc);
-                    console.log('spine file %s, length: %d, number of text nodes: %d', spineFilePath, data.length,
-                        textNodes.length);
+                    console.log(`spine file ${spineFilePath}, length: ${data.length}, number of text nodes: ${textNodes.length}`);
 
                     resolve(textNodes.map(function (node) {
                         var cfi = cfiGenerator.generateCharacterOffsetCFIComponent(node, null, null, null);
