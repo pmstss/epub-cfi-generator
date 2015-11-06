@@ -38,13 +38,14 @@ module.exports = function (grunt) {
             ],
             options: {
                 config: '.jscsrc',
+                esnext: true,
                 verbose: true
             }
         }
     });
 
     grunt.registerTask('default', [
-        'jshint'
-        //'jscs'    // TODO: clarify es6 jscs compatibility
+        'jshint',
+        'jscs'
     ]);
 };

@@ -28,7 +28,7 @@ var cfiGenerator = require('./readium-cfi/cfi_generator').Generator;
                     if (err) {
                         throw `Error reading container.xml file ${filePath}: ${err}`;
                     }
-                
+
                     resolve(path.join(epubPath, validateSingleNode(xpathUtils.nsXPath(xpathUtils.NS_CONTAINER, '//main:rootfile',
                         domParser.parseFromString(data))).getAttribute('full-path')));
                 } catch (e) {
@@ -103,7 +103,7 @@ var cfiGenerator = require('./readium-cfi/cfi_generator').Generator;
         }
     }
 
-    EpubCfiGenerator.prototype.parse = function (inputPath) {         
+    EpubCfiGenerator.prototype.parse = function (inputPath) {
         return new Promise(function (resolve, reject) {
             fs.lstat(inputPath, function (err, stats) {
                 if (!err) {
@@ -112,7 +112,7 @@ var cfiGenerator = require('./readium-cfi/cfi_generator').Generator;
                     reject(err);
                 }
             });
-        }).then(function (stats) {       
+        }).then(function (stats) {
             if (!stats.isDirectory()) {
                 console.time('zipExtract');
                 tmp.setGracefulCleanup();
@@ -120,7 +120,7 @@ var cfiGenerator = require('./readium-cfi/cfi_generator').Generator;
                 var zip = new AdmZip(inputPath);
                 zip.extractAllTo(tmpDirObj.name.toString(), true);
                 console.timeEnd('zipExtract');
-                
+
                 return tmpDirObj.name;
             } else {
                 return inputPath;
