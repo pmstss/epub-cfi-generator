@@ -1,60 +1,55 @@
-module.exports = function (grunt) {
-    'use strict';
+/* eslint-disable global-require */
 
-    // Time how long tasks take. Can help when optimizing build times
-    require('time-grunt')(grunt);
+module.exports = (grunt) => {
+  // Time how long tasks take. Can help when optimizing build times
+  require('time-grunt')(grunt);
 
-    // Load grunt tasks automatically
-    require('load-grunt-tasks')(grunt);
+  // Load grunt tasks automatically
+  require('load-grunt-tasks')(grunt);
 
-    // Configurable paths
-    var config = {
-        app: '.'
-    };
+  // Configurable paths
+  const config = {
+    app: '.'
+  };
 
-    // Define the configuration for all the tasks
-    grunt.initConfig({
+  // Define the configuration for all the tasks
+  grunt.initConfig({
 
-        // Project settings
-        config: config,
+    // Project settings
+    config,
 
-        // Make sure code styles are up to par and there are no obvious mistakes
-        jshint: {
-            dist: [
-                'Gruntfile.js',
-                '<%= config.app %>/*.js'
-            ],
-            options: {
-                jshintrc: '.jshintrc',
-                reporter: require('jshint-stylish'),
-                verbose: true
-            }
-        },
+    // Make sure code styles are up to par and there are no obvious mistakes
+    jshint: {
+      dist: [
+        'Gruntfile.js',
+        '<%= config.app %>/*.js'
+      ],
+      options: {
+        jshintrc: '.jshintrc',
+        reporter: require('jshint-stylish'),
+        verbose: true
+      }
+    },
 
-        jscs: {
-            dist: [
-                'Gruntfile.js',
-                '<%= config.app %>/*.js'
-            ],
-            options: {
-                config: '.jscsrc',
-                esnext: true,
-                verbose: true
-            }
-        },
+    eslint: {
+      target: [
+        'Gruntfile.js',
+        '<%= config.app %>/*.js'
+      ]
+    },
 
-        jsonlint: {
-            all: {
-                src: [
-                    '<%= config.app %>/*.json'
-                ]
-            }
-        },
-    });
+    jsonlint: {
+      all: {
+        src: [
+          '<%= config.app %>/*.json'
+        ]
+      }
+    }
+  });
 
-    grunt.registerTask('default', [
-        'jshint',
-        'jscs',
-        'jsonlint'
-    ]);
+  grunt.registerTask('default', [
+    'jshint',
+    'eslint',
+    'jsonlint'
+  ]);
 };
