@@ -33,23 +33,16 @@ module.exports = (grunt) => {
 
     eslint: {
       target: [
+        '.eslintrc.js',
         'Gruntfile.js',
-        '<%= config.app %>/*.js'
+        '<%= config.app %>/*.js',
+        '<%= config.app %>/*.json'
       ]
-    },
-
-    jsonlint: {
-      all: {
-        src: [
-          '<%= config.app %>/*.json'
-        ]
-      }
     }
   });
 
   grunt.registerTask('default', [
     'jshint',
-    'eslint',
-    'jsonlint'
+    'eslint'
   ]);
 };
