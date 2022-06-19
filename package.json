@@ -2,7 +2,7 @@
   "name": "epub-cfi-generator",
   "version": "0.1.0",
   "description": "Generates CFI for each text node in each spine of given EPUB.",
-  "main": "json-keys-compare.js",
+  "main": "epub-cfi-generator.js",
   "scripts": {
     "start": "node usage.js"
   },
