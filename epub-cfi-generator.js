@@ -130,7 +130,7 @@ const cfiGenerator = require('./readium-cfi/cfi_generator').Generator;
     .then(
       (spinesInfo) => Promise.all(
         spinesInfo.map((spineInfo) => getSpineNodesCfi(spineInfo.path).then((nodes) => {
-        // eslint-disable-next-line no-param-reassign
+          // eslint-disable-next-line no-param-reassign
           spineInfo.content = nodes;
           // eslint-disable-next-line no-param-reassign
           delete spineInfo.path;

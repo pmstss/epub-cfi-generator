@@ -4,6 +4,7 @@
   "description": "Generates CFI for each text node in each spine of given EPUB.",
   "main": "epub-cfi-generator.js",
   "scripts": {
+    "lint": "grunt",
     "start": "node usage.js"
   },
   "dependencies": {
