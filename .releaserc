@@ -9,15 +9,19 @@
           { "type": "build", "release": "patch" }
         ],
         "parserOpts": {
-          "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES"]
+          "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES", "BREAKING"]
         }
       }
     ],
     [
       "@semantic-release/release-notes-generator",
       {
+        "preset": "angular",
+        "parserOpts": {
+          "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES", "BREAKING"]
+        },
         "writerOpts": {
-          "commitsSort": ["subject", "scope"]
+          "commitsSort": ["scope", "subject"]
         }
       }
     ],
@@ -34,6 +38,7 @@
         "failTitle": false,
         "failComment": false
       }
-    ]
+    ],
+    "@semantic-release/changelog"
   ]
 }
