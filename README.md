@@ -14,37 +14,109 @@ $ npm install
 $ node usage.js <input_epub_file> <output_json_file>
 ```
 
-Sample output:
+#### Sample input (similar to https://idpf.org/epub/linking/cfi/#sec-path-examples):
 
-```js
+```xml
+<?xml version="1.0"?>
+<package version="2.0"
+         unique-identifier="bookid"
+         xmlns="http://www.idpf.org/2007/opf"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:opf="http://www.idpf.org/2007/opf">
+
+    <metadata>
+        <dc:title>Test EPUB</dc:title>
+        <dc:identifier id="bookid">some-book-id</dc:identifier>
+        <dc:creator>Viachaslau Tyshkavets</dc:creator>
+        <dc:language>en</dc:language>
+    </metadata>
+
+    <manifest>
+        <item id="test" href="html/test.xhtml" media-type="application/xhtml+xml"/>
+    </manifest>
+
+    <spine>
+        <itemref id="testref"  idref="test"/>
+    </spine>
+
+</package>
+```
+
+```xml
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Title</title>
+    </head>
+    
+    <body id="body01">
+        <p>1</p>
+        <p>2</p>
+        <p>3</p>
+        <p>4</p>
+        <p id="para05">xxx<em>yyy</em>0123456789</p>
+        <p>6</p>
+        <p>7</p>
+        <img id="svgimg" src="foo.svg" alt="image"/>
+        <p>8</p>
+        <p>9</p>
+    </body>
+</html>
+```
+
+#### Output:
+
+```json
 [
-    {
-        "idref": "cover",
-        "href": "cover.xhtml",
-        "content": []
-    },
-        {
-        "idref": "chapter285",
-        "href": "chapter285.xhtml",
-        "content": [
-            {
-                "node": "Physicians and Surgeons, All Other",
-                "cfi": "/4/2[hid398]/2/1:0"
-            },
-            {
-                "node": "All physicians and surgeons not listed separately.",
-                "cfi": "/4/4/1:0"
-            },
-            {
-                "node": "Annual Earnings. Average: ",
-                "cfi": "/4/6/2/1:0"
-            },
-            {
-                "node": "No data available. ",
-                "cfi": "/4/6/1:0"
-            }
-        ]
-    }
+  {
+    "idref": "test",
+    "href": "html/test.xhtml",
+    "content": [
+      {
+        "node": "1",
+        "cfi": "/6/2[testref]!/4[body01]/2/1:0"
+      },
+      {
+        "node": "2",
+        "cfi": "/6/2[testref]!/4[body01]/4/1:0"
+      },
+      {
+        "node": "3",
+        "cfi": "/6/2[testref]!/4[body01]/6/1:0"
+      },
+      {
+        "node": "4",
+        "cfi": "/6/2[testref]!/4[body01]/8/1:0"
+      },
+      {
+        "node": "xxx",
+        "cfi": "/6/2[testref]!/4[body01]/10[para05]/1:0"
+      },
+      {
+        "node": "yyy",
+        "cfi": "/6/2[testref]!/4[body01]/10[para05]/2/1:0"
+      },
+      {
+        "node": "0123456789",
+        "cfi": "/6/2[testref]!/4[body01]/10[para05]/3:0"
+      },
+      {
+        "node": "6",
+        "cfi": "/6/2[testref]!/4[body01]/12/1:0"
+      },
+      {
+        "node": "7",
+        "cfi": "/6/2[testref]!/4[body01]/14/1:0"
+      },
+      {
+        "node": "8",
+        "cfi": "/6/2[testref]!/4[body01]/18/1:0"
+      },
+      {
+        "node": "9",
+        "cfi": "/6/2[testref]!/4[body01]/20/1:0"
+      }
+    ]
+  }
 ]
 ```
 
@@ -53,7 +125,7 @@ Sample output:
 See [usage.js](usage.js)
 
 ```js
-var EpubCfiGenerator = require('./epub-cfi-generator');
+const EpubCfiGenerator = require('./epub-cfi-generator');
 new EpubCfiGenerator().parse(inputFile).then(...)
 ```
 

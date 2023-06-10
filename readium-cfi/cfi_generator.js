@@ -4,8 +4,9 @@
 (function () {
     'use strict';
 
-    var xpathUtils = require('./xpathUtils.js');
-    var EPUBcfi = require('./runtime_errors');
+    var xpathUtils = require('./xpathUtils');
+    var EPUBcfi = require('./runtime_errors').EPUBcfi;
+
     EPUBcfi.CFIInstructions = require('./cfi_instructions').CFIInstructions;
 
     EPUBcfi.Generator = {
