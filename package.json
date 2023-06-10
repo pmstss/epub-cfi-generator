@@ -1,13 +1,14 @@
 {
   "name": "epub-cfi-generator",
   "version": "0.0.0-development",
-  "description": "Generates CFI for each text node in each spine of given EPUB.",
+  "description": "Generates CFI for each text node in each spine for given EPUB",
   "main": "epub-cfi-generator.js",
+  "bin": "usage.js",
   "scripts": {
     "lint": "grunt",
+    "semantic-release": "semantic-release",
     "start": "node usage.js",
-    "test": "jest",
-    "semantic-release": "semantic-release"
+    "test": "jest"
   },
   "dependencies": {
     "@xmldom/xmldom": "^0.8.8",
@@ -17,6 +18,7 @@
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/npm": "^10.0.4",
     "@semantic-release/release-notes-generator": "^11.0.3",
     "conventional-changelog-conventionalcommits": "^6.0.0",
     "eslint": "^8.42.0",
