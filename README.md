@@ -1,20 +1,25 @@
 # epub-cfi-generator
 
 [Node.js](https://nodejs.org/) utility that generates [CFI](http://www.idpf.org/epub/linking/cfi/epub-cfi.html) for each text node in each spine of given [EPUB](http://idpf.org/epub).  
-Takes EPUB as input (either epub file or unzipped epub directory), produces json file as output.  
+Takes EPUB file as input (either epub file or unzipped epub directory), produces json file as output.  
 Internally uses [readium-cfi-js](https://github.com/readium/readium-cfi-js) that does most job.
 
 ## Usage
+
 ### Command line
 
 ```sh
-$ git clone https://github.com/pmstss/epub-cfi-generator
-$ cd epub-cfi-generator
-$ npm install
-$ node usage.js <input_epub_file> <output_json_file>
+npx epub-cfi-generator input.epub output.json
 ```
 
-#### Sample input (similar to https://idpf.org/epub/linking/cfi/#sec-path-examples):
+### Examples
+
+#### Input
+
+Reference EPUB (close to https://idpf.org/epub/linking/cfi/#sec-path-examples)
+
+<details>
+<summary>package.opf</summary>
 
 ```xml
 <?xml version="1.0"?>
@@ -41,13 +46,17 @@ $ node usage.js <input_epub_file> <output_json_file>
 
 </package>
 ```
+</details>
+
+<details>
+<summary>test.xhtml</summary>
 
 ```xml
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>Title</title>
     </head>
-    
+
     <body id="body01">
         <p>1</p>
         <p>2</p>
@@ -62,8 +71,12 @@ $ node usage.js <input_epub_file> <output_json_file>
     </body>
 </html>
 ```
+</details>
 
 #### Output:
+
+<details>
+<summary>Output json</summary>
 
 ```json
 [
@@ -120,17 +133,15 @@ $ node usage.js <input_epub_file> <output_json_file>
 ]
 ```
 
+</details>
+
 ### API
 
-See [usage.js](usage.js)
+#### EpubCfiGenerator.parse()
 
 ```js
 const EpubCfiGenerator = require('./epub-cfi-generator');
-new EpubCfiGenerator().parse(inputFile).then(...);
-```
-
-```sh
-npx epub-cfi-generator input.epub output.json
+const result = await new EpubCfiGenerator().parse(inputFile);
 ```
 
 License
