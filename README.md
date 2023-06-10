@@ -126,7 +126,11 @@ See [usage.js](usage.js)
 
 ```js
 const EpubCfiGenerator = require('./epub-cfi-generator');
-new EpubCfiGenerator().parse(inputFile).then(...)
+new EpubCfiGenerator().parse(inputFile).then(...);
+```
+
+```sh
+npx epub-cfi-generator input.epub output.json
 ```
 
 License
