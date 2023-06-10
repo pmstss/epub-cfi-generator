@@ -5,47 +5,47 @@
     "content": [
       {
         "node": "1",
-        "cfi": "/4[body01]/2/1:0"
+        "cfi": "/6/2[testref]!/4[body01]/2/1:0"
       },
       {
         "node": "2",
-        "cfi": "/4[body01]/4/1:0"
+        "cfi": "/6/2[testref]!/4[body01]/4/1:0"
       },
       {
         "node": "3",
-        "cfi": "/4[body01]/6/1:0"
+        "cfi": "/6/2[testref]!/4[body01]/6/1:0"
       },
       {
         "node": "4",
-        "cfi": "/4[body01]/8/1:0"
+        "cfi": "/6/2[testref]!/4[body01]/8/1:0"
       },
       {
         "node": "xxx",
-        "cfi": "/4[body01]/10[para05]/1:0"
+        "cfi": "/6/2[testref]!/4[body01]/10[para05]/1:0"
       },
       {
         "node": "yyy",
-        "cfi": "/4[body01]/10[para05]/2/1:0"
+        "cfi": "/6/2[testref]!/4[body01]/10[para05]/2/1:0"
       },
       {
         "node": "0123456789",
-        "cfi": "/4[body01]/10[para05]/3:0"
+        "cfi": "/6/2[testref]!/4[body01]/10[para05]/3:0"
       },
       {
         "node": "6",
-        "cfi": "/4[body01]/12/1:0"
+        "cfi": "/6/2[testref]!/4[body01]/12/1:0"
       },
       {
         "node": "7",
-        "cfi": "/4[body01]/14/1:0"
+        "cfi": "/6/2[testref]!/4[body01]/14/1:0"
       },
       {
         "node": "8",
-        "cfi": "/4[body01]/18/1:0"
+        "cfi": "/6/2[testref]!/4[body01]/18/1:0"
       },
       {
         "node": "9",
-        "cfi": "/4[body01]/20/1:0"
+        "cfi": "/6/2[testref]!/4[body01]/20/1:0"
       }
     ]
   }

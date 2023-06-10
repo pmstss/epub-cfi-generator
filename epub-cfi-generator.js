@@ -7,12 +7,16 @@ const tmp = require('tmp');
 const xpathUtils = require('./readium-cfi/xpathUtils');
 const cfiGenerator = require('./readium-cfi/cfi_generator').Generator;
 
+const { DEBUG } = process.env;
+
 (() => {
   const domParser = new xmldom.DOMParser();
 
   function validateSingleNode(nodes) {
     if (nodes.length !== 1) {
-      nodes.forEach(console.log);
+      if (DEBUG) {
+        nodes.forEach(console.log);
+      }
       throw new Error(`Ambiguous nodes, size: ${nodes.length}`);
     }
     return nodes[0];
@@ -51,7 +55,10 @@ const cfiGenerator = require('./readium-cfi/cfi_generator').Generator;
 
           const doc = domParser.parseFromString(data);
           const itemrefs = xpathUtils.nsXPath(xpathUtils.NS_PACKAGE_DOC, '//main:spine//main:itemref', doc);
-          // console.log(`spines found: ${itemrefs.length}`);
+
+          if (DEBUG) {
+            console.log(`spines found: ${itemrefs.length}`);
+          }
 
           resolve(itemrefs.map((itemref) => {
             const item = validateSingleNode(xpathUtils.nsXPath(
@@ -61,6 +68,7 @@ const cfiGenerator = require('./readium-cfi/cfi_generator').Generator;
             ));
 
             return {
+              spineCfi: cfiGenerator.createCFIElementSteps(itemref, 'package', null, null, null),
               idref: itemref.getAttribute('idref'),
               href: item.getAttribute('href'),
               path: `${rootDir}/${item.getAttribute('href')}`
@@ -73,7 +81,7 @@ const cfiGenerator = require('./readium-cfi/cfi_generator').Generator;
     });
   }
 
-  function getSpineNodesCfi(spineFilePath) {
+  function getSpineNodesCfi(spineFilePath, spineNodeCfi) {
     return new Promise((resolve, reject) => {
       fs.readFile(spineFilePath, 'utf8', (err, data) => {
         try {
@@ -84,13 +92,16 @@ const cfiGenerator = require('./readium-cfi/cfi_generator').Generator;
           const doc = domParser.parseFromString(data);
 
           const textNodes = xpathUtils.htmlXPath('/main:html/main:body//text()[normalize-space()]', doc);
-          console.log(`spine file ${spineFilePath}, length: ${data.length}, number of text nodes: ${textNodes.length}`);
+
+          if (DEBUG) {
+            console.log(`spine file ${spineFilePath}, length: ${data.length}, number of text nodes: ${textNodes.length}`);
+          }
 
           resolve(textNodes.map((node) => {
             const cfi = cfiGenerator.generateCharacterOffsetCFIComponent(node, null, null, null);
             return {
               node: node.toString(),
-              cfi
+              cfi: `${spineNodeCfi}!${cfi}`
             };
           }));
         } catch (e) {
@@ -116,12 +127,10 @@ const cfiGenerator = require('./readium-cfi/cfi_generator').Generator;
     });
   }).then((stats) => {
     if (!stats.isDirectory()) {
-      console.time('zipExtract');
       tmp.setGracefulCleanup();
       const tmpDirObj = tmp.dirSync({});
       const zip = new AdmZip(inputPath);
       zip.extractAllTo(tmpDirObj.name.toString(), true);
-      console.timeEnd('zipExtract');
 
       return tmpDirObj.name;
     }
@@ -129,12 +138,16 @@ const cfiGenerator = require('./readium-cfi/cfi_generator').Generator;
   }).then(getPackageFilePath).then((packageFilePath) => getSpinesInfo(packageFilePath))
     .then(
       (spinesInfo) => Promise.all(
-        spinesInfo.map((spineInfo) => getSpineNodesCfi(spineInfo.path).then((nodes) => {
-          // eslint-disable-next-line no-param-reassign
-          spineInfo.content = nodes;
-          // eslint-disable-next-line no-param-reassign
-          delete spineInfo.path;
-        }))
+        spinesInfo.map(
+          (spineInfo) => getSpineNodesCfi(spineInfo.path, spineInfo.spineCfi).then((nodes) => {
+            // eslint-disable-next-line no-param-reassign
+            spineInfo.content = nodes;
+            /* eslint-disable no-param-reassign */
+            delete spineInfo.path;
+            delete spineInfo.spineCfi;
+            /* eslint-enable */
+          })
+        )
       ).then(() => spinesInfo)
     );
 

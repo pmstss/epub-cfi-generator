@@ -70,4 +70,4 @@ EPUBcfi.CFIAssertionError = function (expectedAssertion, targetElementAssertion,
     return new CFIAssertionError();
 };
 
-exports = EPUBcfi;
+exports.EPUBcfi = EPUBcfi;
