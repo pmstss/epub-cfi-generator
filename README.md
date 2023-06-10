@@ -57,9 +57,6 @@ var EpubCfiGenerator = require('./epub-cfi-generator');
 new EpubCfiGenerator().parse(inputFile).then(...)
 ```
 
-### Version
-0.1.0
-
 License
 ----
 MIT
