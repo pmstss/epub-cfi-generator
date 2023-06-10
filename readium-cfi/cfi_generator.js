@@ -195,7 +195,7 @@
         createCFIElementSteps: function (currNode, topLevelElementName, classBlacklist, elementBlacklist, idBlacklist) {
             // Find position of current node in parent list
             var currNodePosition;
-            var blacklistExcluded = EPUBcfi.CFIInstructions.applyBlacklist(xpathUtils.htmlXPath('node()', currNode.parentNode), classBlacklist,
+            var blacklistExcluded = EPUBcfi.CFIInstructions.applyBlacklist(xpathUtils.htmlXPath('*', currNode.parentNode), classBlacklist,
                 elementBlacklist, idBlacklist);
             for (var i = 0; i < blacklistExcluded.length; ++i) {
                 if (blacklistExcluded[i] === currNode) {
